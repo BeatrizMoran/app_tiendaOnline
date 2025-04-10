@@ -9,6 +9,6 @@ import SwiftUI
 
 struct PerfilView: View {
     var body: some View {
-        Text("Vista de perfil")
+        Text("Vista de prueba")
     }
 }
