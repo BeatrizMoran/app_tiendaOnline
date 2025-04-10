@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ProductosView: View {
+    @StateObject private var viewModel = ProductoListViewModel()
+    
     var body: some View {
         VStack {
-            
-            HStack{
+            HStack {
                 Image(systemName: "basket.fill")
                     .resizable()
                     .foregroundStyle(Color.white)
@@ -19,7 +20,7 @@ struct ProductosView: View {
                     .frame(height: 50)
                     .cornerRadius(10)
                     .padding(.bottom, 8)
-                
+
                 Text("Productos")
                     .foregroundColor(.white)
                     .fontWeight(.semibold)
@@ -30,37 +31,47 @@ struct ProductosView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             .background(Color.blue)
-            
-            
+
             NavigationStack {
-                    
-                HStack (alignment: .center, spacing: 16){
-                        Image(systemName: "calendar")
-                            .resizable()
-                            .foregroundStyle(.black)
-                            .opacity(0.5)
-                            .scaledToFit()
-                            .frame(height: 150)
-                            .cornerRadius(10)
-                            .padding(.bottom, 8)
-                        
+                List(viewModel.productos) { producto in
+                    HStack(spacing: 16) {
+                        AsyncImage(url: URL(string: producto.image)) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView() // Cargando...
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                            case .failure(_):
+                                Image(systemName: "photo") // Imagen por defecto si falla
+                                    .resizable()
+                                    .scaledToFill()
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                        .frame(width: 60, height: 60)
+                        .cornerRadius(10)
+                        .clipped()
+
                         VStack(alignment: .leading) {
-                            Text("Titulo")
+                            Text(producto.title)
                                 .font(.headline)
-                                .foregroundStyle(Color(.black))
-                                .foregroundColor(.primary)
-                            
-                            Text("$Precio")
+
+                            Text("$\(producto.price, specifier: "%.2f")")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                
-                    Divider()
-                    .padding(.horizontal, 25)
+                    .padding(.vertical, 8)
                 }
+                
             }
+            
+        }
+        .onAppear {
+            viewModel.fetchProductos()
+        }
     }
 }
