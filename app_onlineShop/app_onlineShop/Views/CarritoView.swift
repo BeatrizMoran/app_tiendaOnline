@@ -9,6 +9,6 @@ import SwiftUI
 
 struct CarritoView: View {
     var body: some View {
-        Text("Vista del carrito")
+        Text("Viva España")
     }
 }
