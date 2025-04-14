@@ -14,6 +14,10 @@ class Carrito: ObservableObject {
         }
     }
     
+    init() {
+            cargarCarrito()  // Cargar el carrito desde UserDefaults cuando se crea la instancia
+        }
+    
     func agregarElemento(_ producto: Producto) {     
         if let index = elementos.firstIndex(where: { $0.producto.id == producto.id }) {
             elementos[index].cantidad += 1
@@ -31,6 +35,18 @@ class Carrito: ObservableObject {
             elementos.remove(at: index)
         }
     }
+    
+    private func cargarCarrito() {
+            if let data = UserDefaults.standard.data(forKey: "carrito_guardado") {
+                let decoder = JSONDecoder()
+                do {
+                    let elementosCargados = try decoder.decode([ElementoCarrito].self, from: data)
+                    self.elementos = elementosCargados
+                } catch {
+                    print("Error al cargar carrito: \(error.localizedDescription)")
+                }
+            }
+        }
     
     //PERSISTENCIA
     
