@@ -9,29 +9,35 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var carrito = Carrito()
+    
+    var totalUnidadesEnCarrito: Int {
+        carrito.elementos.reduce(0) { $0 + $1.cantidad }
+    }
+    
+    
     var body: some View {
         
         
         TabView{
-                ProductosView()
+            ProductosView()
                 .environmentObject(carrito)
-                        .tabItem {
-                            Label("Home", systemImage: "house")
-                        }
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
 
-                PerfilView()
-                        .tabItem {
-                            Label("Perfil", systemImage: "person.circle")
-                        }
+            PerfilView()
+                .tabItem {
+                    Label("Perfil", systemImage: "person.circle")
+                }
 
             CarritoView(carrito: carrito)
-                                        .tabItem {
-                                            Label("Carrito", systemImage: "cart")
-                                                .badge(carrito.elementos.count) // Siempre mostramos el número
-                                        }
-                                }
-                            }
-                        }
+                .badge(totalUnidadesEnCarrito)
+                .tabItem {
+                    Label("Carrito", systemImage: "cart")
+                }
+        }
+    }
+}
 
 #Preview {
     ContentView()

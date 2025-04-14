@@ -71,7 +71,7 @@ struct ProductosView: View {
                         }
                     }
                 }
-            }
+            }.blur(radius: showDetail ? 5 : 0)
 
             // Detalle superpuesto
             if let producto = selectedProducto, showDetail {

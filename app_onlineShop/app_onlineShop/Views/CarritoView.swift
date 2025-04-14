@@ -52,31 +52,45 @@ struct CarritoView: View {
                             }
                             Spacer()
 
-                            // Botón de disminución
-                            Button(action: {
-                                if item.cantidad > 1 {
+                            VStack{
+                                // Botón de disminuir cantidad
+                                Button(action: {
+                                    
+                                }) {
+                                    Image(systemName: "minus.circle.fill")
+                                        .foregroundColor(.red)
+                                        
+                                }.onTapGesture {
                                     carrito.modificarCantidad(id: item.id, cantidad: item.cantidad - 1)
-                                } else {
-                                    carrito.eliminarElemento(id: item.id)
                                 }
-                            }) {
-                                Image(systemName: "minus.circle.fill")
-                                    .foregroundColor(.red)
                             }
-
+                            
                             Text("x\(item.cantidad)")
                                 .font(.headline)
                                 .padding(.horizontal)
 
-                            // Botón de aumento
-                            Button(action: {
-                                carrito.modificarCantidad(id: item.id, cantidad: item.cantidad + 1)
-                            }) {
-                                Image(systemName: "plus.circle.fill")
-                                    .foregroundColor(.green)
+                            VStack{
+                                // Botón de aumentar cantidad
+                                Button(action: {
+                                    
+                                }) {
+                                    Image(systemName: "plus.circle.fill")
+                                        .foregroundColor(.green)
+                                        
+                                }.onTapGesture {
+                                    carrito.modificarCantidad(id: item.id, cantidad: item.cantidad + 1)
+                                }
                             }
+                            
+                            
                         }
                         .padding(.vertical, 4)
+                        
+                        
+                            
+                        
+                        
+                        
                     }
                     .onDelete { indexSet in
                         for index in indexSet {
