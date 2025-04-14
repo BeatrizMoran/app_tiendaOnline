@@ -24,15 +24,15 @@ struct ContentView: View {
                             Label("Perfil", systemImage: "person.circle")
                         }
 
-                CarritoView(carrito: carrito)
-                            .tabItem {
-                                Label("Carrito", systemImage: "cart")
-                                    .badge(carrito.elementos.count) // Siempre mostramos el número
+            CarritoView(carrito: carrito)
+                                        .tabItem {
+                                            Label("Carrito", systemImage: "cart")
+                                                .badge(carrito.elementos.count) // Siempre mostramos el número
+                                        }
+                                }
                             }
-                        }
-                    }
                         }
 
 #Preview {
-ContentView()
+    ContentView()
 }

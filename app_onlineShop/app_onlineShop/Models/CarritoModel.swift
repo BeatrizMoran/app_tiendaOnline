@@ -36,6 +36,16 @@ class Carrito: ObservableObject {
         }
     }
     
+    func modificarCantidad(id: Int, cantidad: Int) {
+            if let index = elementos.firstIndex(where: { $0.id == id }) {
+                if cantidad > 0 {
+                    elementos[index].cantidad = cantidad
+                } else {
+                    eliminarElemento(id: id)
+                }
+            }
+        }
+    
     private func cargarCarrito() {
             if let data = UserDefaults.standard.data(forKey: "carrito_guardado") {
                 let decoder = JSONDecoder()
