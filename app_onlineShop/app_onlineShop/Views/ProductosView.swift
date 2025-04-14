@@ -146,8 +146,6 @@ struct ProductosView: View {
                             .foregroundColor(.gray)
                     }
 
-                    let estaEnCarrito = carrito.elementos.contains { $0.producto.id == producto.id }
-
                     Button(action: {
                         carrito.agregarElemento(producto)
                         mostrarToast = true
@@ -156,17 +154,16 @@ struct ProductosView: View {
                         }
                     }) {
                         HStack {
-                            Text(estaEnCarrito ? "Ya en el carrito" : "Añadir al carrito")
+                            Text("Añadir al carrito")
                                 .fontWeight(.semibold)
                             Spacer()
                             Text("$\(producto.price, specifier: "%.2f")")
                         }
                         .padding()
-                        .background(estaEnCarrito ? Color.gray : Color.blue)
+                        .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(12)
                     }
-                    .disabled(estaEnCarrito)
                     .padding(.top, 10)
 
                 }
