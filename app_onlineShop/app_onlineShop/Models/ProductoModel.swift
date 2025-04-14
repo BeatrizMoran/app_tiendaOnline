@@ -14,6 +14,7 @@ struct Producto: Identifiable, Codable {
     var description: String
     var category: String
     var image: String
+    var rating: Rating
 }
 
 struct Rating: Codable {

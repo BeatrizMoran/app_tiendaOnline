@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var carrito = Carrito()
     var body: some View {
         
         
         TabView{
                 ProductosView()
+                .environmentObject(carrito)
                         .tabItem {
                             Label("Home", systemImage: "house")
                         }
